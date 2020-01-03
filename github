@@ -1,0 +1,3 @@
+git remote add origin https://...........
+
+git pull origin master
