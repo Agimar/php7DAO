@@ -84,6 +84,54 @@
 
 		}
 
+		public static function getList(){
+
+			$sql = new Sql();
+
+			return $sql->select("SELECT * FROM tb_estacionamento ORDER BY entrada DESC");
+
+		}
+
+		public static function search($modelo){
+
+			$sql = new Sql();
+
+			return $sql->select("SELECT * FROM tb_estacionamento WHERE modelo LIKE :SEARCH ORDER BY modelo", array(
+				':SEARCH'=>"%".$modelo."%"
+
+			));
+
+		}
+
+		public function login($modelo, $placa){
+
+			$sql = new Sql();
+
+			$results = $sql->select("SELECT * FROM tb_estacionamento WHERE modelo = :MODELO AND placa = :PLACA", array(
+				":MODELO"=>$modelo,
+				":PLACA"=>$placa
+			));
+
+			if(count($results) > 0){
+
+				$row = $results[0];
+				
+				$this->setId($row['id']);
+				$this->setModelo($row['modelo']);
+				$this->setPlaca($row['placa']);
+				$this->setEntrada(new DateTime($row['entrada']));
+				$this->setSaida(new DateTime($row['saida']));
+				$this->setValor($row['valor']);
+				$this->setVer($row['ver']);
+
+			} else {
+
+				throw new Exception("Login e/ou senha inválidos.");
+
+			}
+
+		}
+
 		public function __toString(){
 
 			return json_encode(array(
