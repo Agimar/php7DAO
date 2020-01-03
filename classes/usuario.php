@@ -70,15 +70,7 @@
 
 			if(count($results) > 0){
 
-				$row = $results[0];
-				
-				$this->setId($row['id']);
-				$this->setModelo($row['modelo']);
-				$this->setPlaca($row['placa']);
-				$this->setEntrada(new DateTime($row['entrada']));
-				$this->setSaida(new DateTime($row['saida']));
-				$this->setValor($row['valor']);
-				$this->setVer($row['ver']);
+				$this->setData($results[0]);
 
 			}
 
@@ -114,16 +106,8 @@
 
 			if(count($results) > 0){
 
-				$row = $results[0];
+				$this->setData($results[0]);
 				
-				$this->setId($row['id']);
-				$this->setModelo($row['modelo']);
-				$this->setPlaca($row['placa']);
-				$this->setEntrada(new DateTime($row['entrada']));
-				$this->setSaida(new DateTime($row['saida']));
-				$this->setValor($row['valor']);
-				$this->setVer($row['ver']);
-
 			} else {
 
 				throw new Exception("Login e/ou senha inválidos.");
@@ -131,6 +115,34 @@
 			}
 
 		}
+
+		public function setData($data){
+
+			$this->setId($data['id']);
+			$this->setModelo($data['modelo']);
+			$this->setPlaca($data['placa']);
+			$this->setEntrada(new DateTime($data['entrada']));
+			$this->setSaida(new DateTime($data['saida']));
+			$this->setValor($data['valor']);
+			$this->setVer($data['ver']);
+
+		}
+
+		/*public function insert(){
+
+			$sql = new Sql();
+
+			$results = $sql->select("CALL sp_modelo_insert(:MODELO, :PLACA)", array(
+
+				':MODELO'=>$this->getModelo(),
+				':PLACA'=>$this->getPlaca()
+			));
+
+			if(count($results) > 0){
+				$this->setData$results[0];
+			}
+
+		}*/
 
 		public function __toString(){
 
