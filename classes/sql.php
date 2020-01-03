@@ -6,7 +6,9 @@
 
 		public function __construct()
 		{
+
 			$this->conn = new PDO("mysql:host=localhost;dbname=bcodados","root","");
+
 		}
 
 		private function setParams($statement, $parameters = array())
@@ -15,7 +17,7 @@
 			foreach ($parameters as $key => $value)
 			{
 
-				$this->setParam($key, $value);
+				$this->setParam($statement, $key, $value);
 
 			}
 		}
@@ -48,9 +50,6 @@
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		}
-
-
-
 
 	}
 
